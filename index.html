@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sandwich Land – Roquebrune Cap Martin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --yellow: #F5C900;
+      --dark:   #1A1008;
+      --red:    #D93D2A;
+      --cream:  #FFFDF4;
+      --sand:   #F5E6CC;
+      --green:  #2E7D32;
+      --light:  #FFFBEE;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;}
+    .nav-logo{font-family:'Abril Fatface',serif;font-size:1.5rem;color:var(--yellow);display:flex;align-items:center;gap:.5rem;}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:color .2s;}
+    .nav-links a:hover{color:var(--yellow);}
+    .nav-tel{background:var(--yellow);color:var(--dark);padding:.45rem 1.2rem;border-radius:999px;font-weight:700;font-size:.85rem;text-decoration:none;transition:background .2s;}
+    .nav-tel:hover{background:var(--red);color:#fff;}
+
+    /* HERO */
+    .hero{min-height:100vh;background:var(--dark);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 3rem 4rem;gap:2rem;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(245,201,0,.15),transparent 70%);}
+    .hero-badge{display:inline-block;background:var(--yellow);color:var(--dark);font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;margin-bottom:1.4rem;animation:fadeUp .6s ease both;}
+    .hero h1{font-family:'Abril Fatface',serif;font-size:clamp(2.8rem,6vw,5.5rem);color:#fff;line-height:1;margin-bottom:1rem;animation:fadeUp .7s .1s ease both;}
+    .hero h1 span{color:var(--yellow);}
+    .hero-sub{color:rgba(255,255,255,.6);font-size:1rem;line-height:1.7;max-width:420px;margin-bottom:2rem;animation:fadeUp .7s .2s ease both;}
+    .hero-info{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;animation:fadeUp .7s .25s ease both;}
+    .hero-info-item{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.75);font-size:.88rem;}
+    .hero-info-item strong{color:var(--yellow);}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+    .btn-primary{background:var(--yellow);color:var(--dark);padding:.8rem 1.8rem;border-radius:999px;font-weight:700;font-size:.95rem;text-decoration:none;transition:transform .2s,background .2s;}
+    .btn-primary:hover{background:var(--red);color:#fff;transform:scale(1.04);}
+    .btn-outline{border:2px solid rgba(255,255,255,.25);color:#fff;padding:.8rem 1.8rem;border-radius:999px;font-weight:500;font-size:.95rem;text-decoration:none;transition:border-color .2s;}
+    .btn-outline:hover{border-color:var(--yellow);}
+    .hero-visual{display:flex;flex-direction:column;align-items:center;gap:1.5rem;animation:fadeIn 1s .2s ease both;}
+    .hero-emoji{font-size:clamp(7rem,13vw,12rem);filter:drop-shadow(0 20px 50px rgba(245,201,0,.25));animation:float 3s ease-in-out infinite;}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;}
+    .hero-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:.4rem 1rem;border-radius:999px;font-size:.8rem;font-weight:500;}
+
+    /* BANNER */
+    .banner{background:var(--red);padding:1.2rem 3rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;text-align:center;}
+    .banner-text{color:#fff;font-size:1rem;font-weight:600;}
+    .banner-text strong{font-family:'Abril Fatface',serif;font-size:1.3rem;}
+    .banner-tel{color:var(--yellow);font-family:'Abril Fatface',serif;font-size:1.5rem;text-decoration:none;}
+
+    /* SECTIONS */
+    section{padding:5rem 3rem;}
+    .section-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--red);margin-bottom:.6rem;}
+    .section-title{font-family:'Abril Fatface',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--dark);line-height:1.1;margin-bottom:2.5rem;}
+
+    /* FORMULES */
+    .formules{background:var(--yellow);}
+    .formules .section-title{color:var(--dark);}
+    .formules .section-label{color:rgba(26,16,8,.6);}
+    .formules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
+    .formule-card{background:#fff;border-radius:20px;padding:1.6rem;box-shadow:0 4px 20px rgba(0,0,0,.08);transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;}
+    .formule-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(0,0,0,.13);}
+    .formule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);}
+    .formule-emoji{font-size:2.5rem;margin-bottom:.8rem;}
+    .formule-name{font-family:'Abril Fatface',serif;font-size:1.2rem;color:var(--dark);margin-bottom:.4rem;}
+    .formule-desc{font-size:.83rem;color:rgba(26,16,8,.6);line-height:1.5;margin-bottom:.8rem;}
+    .formule-tag{display:inline-block;background:var(--red);color:#fff;font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:999px;}
+
+    /* TABS */
+    .menu-section{background:var(--light);}
+    .tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .tab{background:transparent;border:2px solid rgba(26,16,8,.15);color:var(--dark);padding:.5rem 1.2rem;border-radius:999px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s;}
+    .tab.active,.tab:hover{background:var(--dark);color:var(--yellow);border-color:var(--dark);}
+    .menu-panel{display:none;}
+    .menu-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.4rem;}
+
+    /* PRODUCT CARDS */
+    .prod-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 15px rgba(26,16,8,.07);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column;}
+    .prod-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(26,16,8,.12);}
+    .prod-top{background:var(--sand);padding:1.2rem 1.5rem .8rem;display:flex;justify-content:space-between;align-items:flex-start;}
+    .prod-emoji{font-size:2.4rem;}
+    .prod-badge{background:var(--red);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.05em;padding:.2rem .6rem;border-radius:999px;text-transform:uppercase;white-space:nowrap;}
+    .prod-badge.vege{background:var(--green);}
+    .prod-body{padding:1rem 1.5rem 1.4rem;flex:1;display:flex;flex-direction:column;}
+    .prod-name{font-family:'Abril Fatface',serif;font-size:1.15rem;color:var(--dark);margin-bottom:.35rem;}
+    .prod-desc{font-size:.82rem;color:rgba(26,16,8,.55);line-height:1.55;flex:1;margin-bottom:.9rem;}
+    .prod-footer{display:flex;justify-content:space-between;align-items:center;}
+    .prod-price{font-family:'Abril Fatface',serif;font-size:1.35rem;color:var(--red);}
+    .price-variants{display:flex;flex-direction:column;gap:.25rem;}
+    .price-row{display:flex;justify-content:space-between;font-size:.82rem;gap:1rem;}
+    .price-row span:first-child{color:rgba(26,16,8,.55);}
+    .price-row span:last-child{font-weight:700;color:var(--red);}
+
+    /* SUPPLEMENTS */
+    .suppl-section{background:#fff;}
+    .suppl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+    .suppl-item{border:2px solid var(--sand);border-radius:14px;padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;transition:border-color .2s;}
+    .suppl-item:hover{border-color:var(--yellow);}
+    .suppl-name{font-weight:600;font-size:.9rem;}
+    .suppl-price{font-family:'Abril Fatface',serif;font-size:1.1rem;color:var(--red);}
+
+    /* COUSCOUS */
+    .couscous-section{background:var(--dark);}
+    .couscous-section .section-title{color:#fff;}
+    .couscous-section .section-label{color:var(--yellow);}
+    .couscous-note{display:inline-flex;align-items:center;gap:.6rem;background:rgba(245,201,0,.15);border:1px solid rgba(245,201,0,.3);color:var(--yellow);padding:.6rem 1.2rem;border-radius:999px;font-size:.85rem;font-weight:600;margin-bottom:2rem;}
+    .couscous-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem;}
+    .couscous-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:1.8rem;transition:background .2s,border-color .2s;}
+    .couscous-card:hover{background:rgba(245,201,0,.08);border-color:rgba(245,201,0,.3);}
+    .couscous-emoji{font-size:2.5rem;margin-bottom:.8rem;}
+    .couscous-name{font-family:'Abril Fatface',serif;font-size:1.3rem;color:#fff;margin-bottom:.3rem;}
+    .couscous-sub{font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:.6rem;}
+    .couscous-price{font-family:'Abril Fatface',serif;font-size:1.6rem;color:var(--yellow);}
+
+    /* FOOTER */
+    footer{background:var(--dark);padding:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+    .footer-logo{font-family:'Abril Fatface',serif;font-size:1.6rem;color:var(--yellow);}
+    .footer-info{color:rgba(255,255,255,.55);font-size:.85rem;line-height:1.8;}
+    .footer-info a{color:var(--yellow);text-decoration:none;}
+    .footer-links{display:flex;gap:1.5rem;list-style:none;}
+    .footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;transition:color .2s;}
+    .footer-links a:hover{color:var(--yellow);}
+
+    /* ANIMATIONS */
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav{padding:1rem 1.2rem;}
+      .nav-links{display:none;}
+      .hero{grid-template-columns:1fr;padding:6rem 1.2rem 3rem;text-align:center;}
+      .hero-info,.hero-btns{justify-content:center;}
+      .hero-visual{display:none;}
+      .banner{padding:1rem 1.2rem;gap:1rem;}
+      section{padding:3.5rem 1.2rem;}
+      footer{flex-direction:column;text-align:center;padding:2rem 1.2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🥪 Sandwich Land</div>
+  <ul class="nav-links">
+    <li><a href="#formules">Formules</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#supplements">Suppléments</a></li>
+    <li><a href="#couscous">Couscous</a></li>
+    <li><a href="tel:0493574706" class="nav-tel">📞 04 93 57 47 06</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">🛵 Livraison Gratuite à Domicile &amp; Bureau</div>
+    <h1>Sandwich<br><span>Land</span></h1>
+    <p class="hero-sub">Paninis, burgers, sandwichs chauds et couscous du samedi — des saveurs généreuses préparées avec passion à Roquebrune Cap Martin.</p>
+    <div class="hero-info">
+      <div class="hero-info-item">📍 <strong>Roquebrune Cap Martin</strong></div>
+      <div class="hero-info-item">📞 <strong>04 93 57 47 06</strong></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">Voir le Menu</a>
+      <a href="tel:0493574706" class="btn-outline">📞 Passer commande</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-emoji">🥪</div>
+    <div class="hero-pills">
+      <span class="hero-pill">🌯 Paninis</span>
+      <span class="hero-pill">🍔 Burgers</span>
+      <span class="hero-pill">🥙 Sandwichs chauds</span>
+      <span class="hero-pill">🍲 Couscous le samedi</span>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-text"><strong>🛵 LIVRAISON GRATUITE</strong> à Domicile &amp; Bureau</div>
+  <a href="tel:0493574706" class="banner-tel">📞 04 93 57 47 06</a>
+  <div class="banner-text">📍 19 Avenue Marceau Foch – 06190 Roquebrune Cap Martin</div>
+</div>
+
+<!-- FORMULES -->
+<section class="formules" id="formules">
+  <div class="section-label reveal">Bon Plans</div>
+  <h2 class="section-title reveal">Nos Formules</h2>
+  <div class="formules-grid">
+    <div class="formule-card reveal">
+      <div class="formule-emoji">🌯🥤🍮</div>
+      <div class="formule-name">French Panini</div>
+      <p class="formule-desc">1 Panini + 1 Boisson + 1 Dessert</p>
+      <span class="formule-tag">Formule complète</span>
+    </div>
+    <div class="formule-card reveal">
+      <div class="formule-emoji">🍔🥤🍮</div>
+      <div class="formule-name">French Burger</div>
+      <p class="formule-desc">1 Burger + 1 Boisson + 1 Dessert</p>
+      <span class="formule-tag">Formule complète</span>
+    </div>
+    <div class="formule-card reveal">
+      <div class="formule-emoji">🥙🍟🥤</div>
+      <div class="formule-name">French Sandwich</div>
+      <p class="formule-desc">1 Sandwich Chaud + Frites + Boisson</p>
+      <span class="formule-tag">Formule complète</span>
+    </div>
+    <div class="formule-card reveal">
+      <div class="formule-emoji">🛵</div>
+      <div class="formule-name">Livraison Offerte</div>
+      <p class="formule-desc">Livraison gratuite à domicile et au bureau sans minimum de commande.</p>
+      <span class="formule-tag">0 € de frais</span>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-label reveal">Notre Carte</div>
+  <h2 class="section-title reveal">Tout Notre Menu 🗺️</h2>
+
+  <div class="tabs reveal">
+    <button class="tab active" onclick="showTab(this,'paninis')">🌯 Paninis</button>
+    <button class="tab" onclick="showTab(this,'burgers')">🍔 Burgers</button>
+    <button class="tab" onclick="showTab(this,'froids')">🥗 Sandwichs Froids</button>
+    <button class="tab" onclick="showTab(this,'chauds')">🥙 Sandwichs Chauds</button>
+  </div>
+
+  <!-- PANINIS -->
+  <div class="menu-panel active" id="panel-paninis">
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌯</span></div>
+      <div class="prod-body">
+        <div class="prod-name">François</div>
+        <p class="prod-desc">Jambon, salade, emmental</p>
+        <div class="prod-footer"><div class="prod-price">4,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌯</span><span class="prod-badge vege">🌿 Végé</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Végétarien</div>
+        <p class="prod-desc">Légumes, mozzarella, basilic, sauce verte</p>
+        <div class="prod-footer"><div class="prod-price">4,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌯</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Thon</div>
+        <p class="prod-desc">Thon, salade, tomate, mozzarella, maïs</p>
+        <div class="prod-footer"><div class="prod-price">4,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌯</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Panini Laïté</div>
+        <p class="prod-desc">Jambon, merguez, viande hachée, fromage fondu</p>
+        <div class="prod-footer"><div class="prod-price">5,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌯</span><span class="prod-badge">⭐ Best</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Poulet Lover</div>
+        <p class="prod-desc">Poulet mariné, salade, tomate, fromage, sauce maison</p>
+        <div class="prod-footer"><div class="prod-price">5,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌯</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Steak</div>
+        <p class="prod-desc">Viande hachée, salade, tomate, fromage, sauce</p>
+        <div class="prod-footer"><div class="prod-price">5,00€</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BURGERS -->
+  <div class="menu-panel" id="panel-burgers">
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Chicken</div>
+        <p class="prod-desc">Poulet pané, salade, tomate, cornichons, sauce maison</p>
+        <div class="prod-footer"><div class="prod-price">5,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Mini Chicken</div>
+        <p class="prod-desc">Mini burger poulet, salade, cornichons</p>
+        <div class="prod-footer"><div class="prod-price">4,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span><span class="prod-badge">🔥 Maxi</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Double Chicken</div>
+        <p class="prod-desc">Double poulet pané, double cheddar, sauce BBQ fumée</p>
+        <div class="prod-footer"><div class="prod-price">7,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Sea Gold</div>
+        <p class="prod-desc">Crevettes, salade, oignons, emmental, sauce cocktail</p>
+        <div class="prod-footer"><div class="prod-price">6,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span><span class="prod-badge">⭐ Best</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Steak</div>
+        <p class="prod-desc">Steak haché, salade, tomate, fromage, sauce maison</p>
+        <div class="prod-footer"><div class="prod-price">5,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Béchamel</div>
+        <p class="prod-desc">Poulet grillé, béchamel maison, emmental fondu</p>
+        <div class="prod-footer"><div class="prod-price">5,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Méditerranée</div>
+        <p class="prod-desc">Thon, tomate, mozzarella, olives, pesto</p>
+        <div class="prod-footer"><div class="prod-price">5,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Pecker Bacon</div>
+        <p class="prod-desc">Bacon croustillant, œuf, cheddar, sauce moutarde</p>
+        <div class="prod-footer"><div class="prod-price">6,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span><span class="prod-badge vege">🌿 Végé</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Végétarien</div>
+        <p class="prod-desc">Légumes grillés, mozzarella, sauce verte</p>
+        <div class="prod-footer"><div class="prod-price">5,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span><span class="prod-badge">🔥 Spécial</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Pitas Chicken</div>
+        <p class="prod-desc">Poulet mariné, salade, oignons, tomate, sauce yaourt</p>
+        <div class="prod-footer"><div class="prod-price">6,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍔</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Poulet Premium</div>
+        <p class="prod-desc">Escalope de poulet, fromage raclette, champignons</p>
+        <div class="prod-footer"><div class="prod-price">6,50€</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SANDWICHS FROIDS -->
+  <div class="menu-panel" id="panel-froids">
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥗</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Slim Thon</div>
+        <p class="prod-desc">Thon, salade, tomate, maïs, carottes râpées</p>
+        <div class="prod-footer"><div class="prod-price">4,00€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥗</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Club Sandwich</div>
+        <p class="prod-desc">Jambon, emmental, salade, tomate, mayo</p>
+        <div class="prod-footer"><div class="prod-price">4,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥗</span><span class="prod-badge">⭐ Best</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Jambon Fromage</div>
+        <p class="prod-desc">Jambon cuit, emmental, beurre, salade fraîche</p>
+        <div class="prod-footer"><div class="prod-price">3,50€</div></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥗</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Poulet Crudités</div>
+        <p class="prod-desc">Poulet grillé, carottes, concombre, sauce légère</p>
+        <div class="prod-footer"><div class="prod-price">4,50€</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SANDWICHS CHAUDS -->
+  <div class="menu-panel" id="panel-chauds">
+    <div style="grid-column:1/-1;background:rgba(245,201,0,.15);border:1px solid rgba(245,201,0,.4);border-radius:12px;padding:1rem 1.4rem;margin-bottom:.5rem;">
+      <p style="font-size:.85rem;color:var(--dark);font-weight:600;">🥙 Galette du Pain — Prix selon accompagnement :</p>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Kebab</div>
+        <p class="prod-desc">Viande kebab, salade, tomate, oignon, sauce au choix</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>4,50€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>5,50€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>6,50€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span><span class="prod-badge">⭐ Best</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Kebab Chicken</div>
+        <p class="prod-desc">Poulet mariné grillé, salade, tomate, sauce yaourt</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>4,50€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>5,50€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>6,50€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🌶️</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Merguez</div>
+        <p class="prod-desc">Merguez grillées, salade, tomate, harissa</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>4,50€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>5,50€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>6,50€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Mixte</div>
+        <p class="prod-desc">Kebab + Merguez, salade, tomate, sauce double</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>5,00€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>6,00€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>7,00€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🍗</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Poulet Laïté</div>
+        <p class="prod-desc">Poulet, fromage fondu, salade, tomate</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>5,00€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>6,00€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>7,00€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span><span class="prod-badge">🔥 Spécial</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Kebab Laïté</div>
+        <p class="prod-desc">Kebab, fromage fondu, sauce spéciale maison</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>5,50€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>6,50€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>7,50€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Chicken Laïté</div>
+        <p class="prod-desc">Chicken, fromage fondu, salade, tomate, oignons</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>5,50€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>6,50€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>7,50€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-top"><span class="prod-emoji">🥙</span></div>
+      <div class="prod-body">
+        <div class="prod-name">Mixte Laïté</div>
+        <p class="prod-desc">Kebab + Merguez + fromage fondu, sauce maison</p>
+        <div class="price-variants">
+          <div class="price-row"><span>Seul</span><span>6,00€</span></div>
+          <div class="price-row"><span>+ Frites</span><span>7,00€</span></div>
+          <div class="price-row"><span>+ Frites + Boisson</span><span>8,00€</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPLEMENTS -->
+<section class="suppl-section" id="supplements">
+  <div class="section-label reveal">En plus</div>
+  <h2 class="section-title reveal">Nos Suppléments</h2>
+  <div class="suppl-grid reveal">
+    <div class="suppl-item"><span class="suppl-name">🧀 Fromage</span><span class="suppl-price">+0,50€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🥚 Œuf</span><span class="suppl-price">+0,50€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🥓 Bacon</span><span class="suppl-price">+1,00€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🌶️ Merguez</span><span class="suppl-price">+1,00€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🍗 Chicken</span><span class="suppl-price">+1,50€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🧅 Oignons</span><span class="suppl-price">+0,30€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🥑 Avocat</span><span class="suppl-price">+1,00€</span></div>
+    <div class="suppl-item"><span class="suppl-name">🫓 Double Galette</span><span class="suppl-price">+1,00€</span></div>
+  </div>
+</section>
+
+<!-- COUSCOUS -->
+<section class="couscous-section" id="couscous">
+  <div class="section-label reveal">Le Weekend</div>
+  <h2 class="section-title reveal">Nos Couscous 🍲</h2>
+  <div class="couscous-note reveal">⚠️ Uniquement le Samedi – Pensez à réserver !</div>
+  <div class="couscous-grid">
+    <div class="couscous-card reveal">
+      <div class="couscous-emoji">🍲</div>
+      <div class="couscous-name">Poulet</div>
+      <div class="couscous-price">10,00€</div>
+    </div>
+    <div class="couscous-card reveal">
+      <div class="couscous-emoji">🍖</div>
+      <div class="couscous-name">Agneau</div>
+      <div class="couscous-price">10,00€</div>
+    </div>
+    <div class="couscous-card reveal">
+      <div class="couscous-emoji">👑</div>
+      <div class="couscous-name">Royal</div>
+      <div class="couscous-sub">Poulet + Agneau + Merguez</div>
+      <div class="couscous-price">14,00€</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <div class="footer-logo">🥪 Sandwich Land</div>
+    <div class="footer-info" style="margin-top:.5rem;">
+      Ouvert 7j/7 · Livraison gratuite<br>
+      <a href="tel:0493574706">📞 04 93 57 47 06</a>
+    </div>
+  </div>
+  <div class="footer-info" style="text-align:center;">
+    📍 19 Avenue Marceau Foch<br>
+    06190 Roquebrune Cap Martin<br>
+    🛵 Livraison domicile &amp; bureau
+  </div>
+  <ul class="footer-links">
+    <li><a href="#formules">Formules</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#couscous">Couscous</a></li>
+  </ul>
+</footer>
+
+<script>
+  function showTab(btn, id) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
